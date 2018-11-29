@@ -26,7 +26,7 @@ Chromosome::~Chromosome()
 
 //////////////////////////////////////////////////////////////////////////////
 // Perform a single mutation on this chromosome
-virtual void
+void
 Chromosome::mutate()
 {
   std::uniform_int_distribution<int> dist(0, order_.size() - 1);

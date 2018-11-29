@@ -29,9 +29,9 @@ Cities::permutation_t deepCopy(Cities::permutation_t source)
 }
 
 void ClimbChromosome::mutate(){
-  double fitness = get_fitness();
-  Chromosome* chrome2 = clone();
-  Chromosome* chrome3 = clone();
+  double fitness1 = get_fitness();
+  ClimbChromosome* chrome2 = clone();
+  ClimbChromosome* chrome3 = clone();
   chrome2->order_ = deepCopy(order_);
   chrome3->order_ = deepCopy(order_);
   int p = rand()% order_.size();
@@ -83,7 +83,7 @@ void ClimbChromosome::mutate(){
   delete chrome3;
 }
 
-virtual ClimbChromosome::Chromosome* clone() const{ //we don't need override in the definition here
+ClimbChromosome* ClimbChromosome::clone() const{ //we don't need override in this line here
   return new ClimbChromosome(cities_ptr_);
 }
 

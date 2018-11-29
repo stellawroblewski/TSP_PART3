@@ -17,6 +17,9 @@ class ClimbChromosome : public Chromosome{
 
     void mutate() override;
 
-    virtual Chromosome* clone() const override;
+    virtual ClimbChromosome* clone() const override;
+   
+   protected:
+   	Cities::permutation_t order_;
 };
 
