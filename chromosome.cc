@@ -26,7 +26,7 @@ Chromosome::~Chromosome()
 
 //////////////////////////////////////////////////////////////////////////////
 // Perform a single mutation on this chromosome
-void
+virtual void
 Chromosome::mutate()
 {
   std::uniform_int_distribution<int> dist(0, order_.size() - 1);
@@ -134,3 +134,4 @@ Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
   const auto last = order_.cbegin() + end;
   return std::find(order_.cbegin() + begin, last, value) != last;
 }
+

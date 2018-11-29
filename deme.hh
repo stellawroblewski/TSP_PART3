@@ -7,6 +7,7 @@
 
 #include "chromosome.hh"
 #include "cities.hh"
+#include "climb_chromosome.hh"
 
 #include <random>
 

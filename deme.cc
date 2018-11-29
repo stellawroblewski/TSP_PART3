@@ -6,6 +6,7 @@
 #include "cities.hh"
 #include "chromosome.hh"
 #include "deme.hh"
+#include "climb_chromosome.hh"
 
 #include <algorithm>
 #include <cassert>
@@ -18,9 +19,9 @@
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
  : pop_(pop_size), mut_rate_(mut_rate)
 {
-  // Create random Chromosomes and put into population vector
+  // Create random ClimbChromosomes and put into population vector
   for (auto& cp : pop_) {
-    cp = new Chromosome(cities_ptr);
+    cp = new ClimbChromosome(cities_ptr);
   }
 }
 
@@ -85,7 +86,8 @@ Chromosome* Deme::select_parent()
 {
   // Figure out what the total sum of fitness in pop_ is:
   const double total_fitness = std::accumulate(pop_.cbegin(), pop_.cend(), 0.,
-      [](double sum, auto cp){ return sum + cp->get_fitness(); });
+      [](double sum, auto cp){ return sum + cp->get_fitness(); 
+    });
 
   // Pick a random fitness sum value to stop the wheel at:
   static std::uniform_real_distribution<> dist(0.0, 1);
