@@ -14,11 +14,12 @@
 #include <random>
 
 class Chromosome {
-   // Disable public copying of objects for polymorphism:
-  Chromosome(const Chromosome&) = delete;
-  Chromosome(Chromosome&&) = delete;
-  Chromosome& operator=(const Chromosome&) = delete;
-  Chromosome& operator=(Chromosome&&) = delete;
+ protected:
+  // Disable public copying of objects for polymorphism:
+  Chromosome(const Chromosome&) = default;
+  Chromosome(Chromosome&&) = default;
+  Chromosome& operator=(const Chromosome&) = default;
+  Chromosome& operator=(Chromosome&&) = default;
 
  public:
   // Creation method for new Chromsomoe. Saves a copy of the cities and
@@ -30,7 +31,7 @@ class Chromosome {
   // It is the caller's responsibility to free this memory.
   virtual Chromosome* clone() const
   {
-    return new Chromosome(cities_ptr_);
+    return new Chromosome(*this);
   }
 
   // Clean up as necessary
@@ -76,7 +77,7 @@ class Chromosome {
   bool is_valid() const;
 
   // Find whether a certain value appears in a given range of the chromosome.
-  // Returns true if value is within the specified the range specified
+  // Returns true if value is in order_ within the specified the range specified
   // [begin, end) and false otherwise.
   bool is_in_range(unsigned value, unsigned begin, unsigned end) const;
 

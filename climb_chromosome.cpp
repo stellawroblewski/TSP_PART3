@@ -6,8 +6,8 @@
 
 
 //inspiration taken from https://www.learncpp.com/cpp-tutorial/915-shallow-vs-deep-copying/
-Cities::permutation_t deepCopy(Cities::permutation_t source)
-{
+//Cities::permutation_t deepCopy(Cities::permutation_t source)
+/*{
     // because m_length is not a pointer, we can shallow copy it
     int m_length = source.size();
  
@@ -26,15 +26,20 @@ Cities::permutation_t deepCopy(Cities::permutation_t source)
     }
 
     return *clone;
+    }*/
+
+
+ClimbChromosome* ClimbChromosome::clone() const{ //we don't need override in this line here
+  return new ClimbChromosome(cities_ptr_);
 }
 
 void ClimbChromosome::mutate(){
   double fitness1 = get_fitness();
   ClimbChromosome* chrome2 = clone();
   ClimbChromosome* chrome3 = clone();
-  chrome2->order_ = deepCopy(order_);
-  chrome3->order_ = deepCopy(order_);
-  int p = rand()% order_.size();
+  //chrome2->order_ = deepCopy(order_);
+  //chrome3->order_ = deepCopy(order_);
+  unsigned int p = rand()% order_.size();
   int temp = order_[p];
   int temp2;
 
@@ -68,14 +73,14 @@ void ClimbChromosome::mutate(){
     if (fitness1 > fitness3){ 
     }
     if (fitness3 > fitness1){
-    order_ = deepCopy(chrome3->order_);    
+    order_ = chrome3->order_;    
     }
   }
   else if (fitness2 > fitness3){
-    order_ = deepCopy(chrome2->order_);     
+    order_ = chrome2->order_;     
   }
   else {
-    order_ = deepCopy(chrome3->order_);
+    order_ = chrome3->order_;
   }
 
   //deleting chrome2 and chrome3
@@ -83,7 +88,4 @@ void ClimbChromosome::mutate(){
   delete chrome3;
 }
 
-ClimbChromosome* ClimbChromosome::clone() const{ //we don't need override in this line here
-  return new ClimbChromosome(cities_ptr_);
-}
 
