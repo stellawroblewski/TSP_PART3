@@ -37,36 +37,29 @@ void ClimbChromosome::mutate(){
   double fitness1 = get_fitness();
   ClimbChromosome* chrome2 = clone();
   ClimbChromosome* chrome3 = clone();
-  //chrome2->order_ = deepCopy(order_);
-  //chrome3->order_ = deepCopy(order_);
-  unsigned int p = rand()% order_.size();
-  int temp = order_[p];
-  int temp2;
-
-  //calculating a potential chromosome, chrome2
-  if (p == 0){
-    temp2 = order_[order_.size()-1];
+  chrome2->order_ = order_;
+  chrome3->order_ = order_;
+  unsigned int p = rand() % (order_.size());
+  unsigned int p_order = order_[p];
+  if (p!=0){
+    chrome2->order_[p] = order_[p-1];
+    chrome2->order_[p-1] = p_order; 
   }
-  else {
-    temp2 = order_[p-1];
-  }	
-
-  chrome2->order_[p] = temp2;
-  chrome2->order_[order_.size()-1] = temp;
+  else{
+    chrome2->order_[p] = order_[order_.size()-1];
+    chrome2->order_[order_.size()-1] = p_order;
+  }
   double fitness2 = chrome2->get_fitness();
-  
-  //calculating another potential chromosome, chrome3
-  if (p == order_.size()-1){
-    temp2 = order_[0];
+  if (p!=(order_.size()-1)){
+    chrome3->order_[p] = order_[p+1];
+    chrome3->order_[p+1] = p_order;
   }
-  
-  else {
-    temp2 = order_[p+1];
+  else{
+    chrome3->order_[p] = order_[0];
+    chrome3->order_[0] = p_order;
   }
-  chrome3->order_[p] = temp2;
-  chrome3->order_[order_.size()-1] = temp;
   double fitness3 = chrome3->get_fitness();
-  
+
   //checking to see which chromosome has best fitness and 
   //setting this chromosome to have that best order
   if (fitness1 > fitness2){
@@ -82,10 +75,12 @@ void ClimbChromosome::mutate(){
   else {
     order_ = chrome3->order_;
   }
-
-  //deleting chrome2 and chrome3
-  delete chrome2;
-  delete chrome3;
 }
+
+
+
+
+
+
 
 
