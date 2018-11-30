@@ -40,6 +40,9 @@ Chromosome::mutate()
 std::pair<Chromosome*, Chromosome*>
 Chromosome::recombine(const Chromosome* other)
 {
+  std::cout <<"chromo.cc 43\n";
+  std::cout<<order_[0]<<order_[1]<<order_[2]<<"\n";
+
   assert(is_valid());
   assert(other->is_valid());
 
