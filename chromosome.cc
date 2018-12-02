@@ -12,7 +12,7 @@
 Chromosome::Chromosome(const Cities* cities_ptr)
   : cities_ptr_(cities_ptr),
     order_(random_permutation(cities_ptr->size())),
-    generator_()
+    generator_(rand())
 {
   assert(is_valid());
 }
@@ -40,9 +40,6 @@ Chromosome::mutate()
 std::pair<Chromosome*, Chromosome*>
 Chromosome::recombine(const Chromosome* other)
 {
-  std::cout <<"chromo.cc 43\n";
-  std::cout<<order_[0]<<order_[1]<<order_[2]<<"\n";
-
   assert(is_valid());
   assert(other->is_valid());
 
@@ -77,7 +74,7 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
   // value is within [b,e) and from parent2 otherwise
   unsigned i = 0, j = 0;
 
-  for ( ; i < len && j < len; ++i) {
+  for ( ; i < len; ++i) {
     if (i >= b and i < e) {
       child->order_[i] = p1->order_[i];
     }
@@ -137,4 +134,3 @@ Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
   const auto last = order_.cbegin() + end;
   return std::find(order_.cbegin() + begin, last, value) != last;
 }
-
