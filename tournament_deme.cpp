@@ -13,6 +13,7 @@ Do the same for the next pair, and so forth. You should have P/2 parents in the 
 
 #include <random>
 #include <vector>
+#include <cmath>
 
 std::vector<Chromosome*> TournamentDeme::winners (std::vector<Chromosome*> parents){
     if(parents.size()<=1){
@@ -38,14 +39,14 @@ std::vector<Chromosome*> TournamentDeme::winners (std::vector<Chromosome*> paren
 Chromosome* TournamentDeme::tournament_selection(){
     auto random_num_parents = [&]() -> int {
         long unsigned int random = rand() % pop_.size();
-        while((2^random) > pop_.size()) {
+        while((std::pow(2,random)) > pop_.size()) {
             random = rand() % pop_.size();
         }
-        return 2^random;
+        return std::pow(2,random);
     };
     std::vector<Chromosome*> parents;
     for (int i = 0; i < random_num_parents(); i++){
-        parents.push_back(select_parent());
+        parents.push_back(Deme::select_parent());
     }
     Chromosome* winner = winners(parents)[0];
     return winner;
