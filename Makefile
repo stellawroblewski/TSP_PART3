@@ -5,7 +5,7 @@ OBJ=$(SRC:.cc=.o)
 
 all:  tsp
 
-tsp: tsp.o chromosome.o deme.o cities.o
+tsp: tsp.o chromosome.o deme.o cities.o climb_chromosome.o tournament_deme.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 %.o: %.cc %.hh
