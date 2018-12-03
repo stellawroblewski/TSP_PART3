@@ -1,4 +1,6 @@
 # TSP PART3
+Stella Wroblewski 
+Ariel Flaster
 
 ## __Our Method__
 
