@@ -10,11 +10,11 @@
 class TournamentDeme : public Deme{
     
   public:
-    void compute_next_generation() override;
+    Chromosome* select_parent() override;
 
-    void tournament_selection();
+    Chromosome* tournament_selection();
 
-private:
-    std::vector<Chromosome::Chromosome*> winners (std::vector<Chromosome::Chromosome*> parents);
+    std::vector<Chromosome*> winners(std::vector<Chromosome*> parents);
+};
 
 

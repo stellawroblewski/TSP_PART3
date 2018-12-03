@@ -14,29 +14,13 @@ Do the same for the next pair, and so forth. You should have P/2 parents in the 
 #include <random>
 #include <vector>
 
-void TournamentDeme::tournament_selection(){
-    int random_num_parents = [&]() -> {
-        int random = rand() % pop_.size();
-        while(2^random > pop_.size()) {
-            random = rand() % pop_.size();
-        }
-        return 2^random;
-    };
-    std::vector<Chromosome::Chromosome*> parents;
-    for (int i = 0; i <random_num_parents; i++){
-        parents.push_back(select_parent());
-    }
-    Chromosome* winner = winners(parents)[0];
-
-}
-std::vector<Chromosome::Chromosome*> TournamentDeme::winners (std::vector<Chromosome::Chromosome*> parents){
+std::vector<Chromosome*> TournamentDeme::winners (std::vector<Chromosome*> parents){
     if(parents.size()<=1){
         return parents;
     }
+    std::vector<Chromosome*> winning_parents;
 
-    std::vector<Chromosome::Chromosome*> winning_parents;
-
-    for (int i = 0; i < parents.size()/2; i+=2){
+    for (long unsigned int i = 0; i < (parents.size())/2; i+=2){
         double fit_1 = parents[i]->get_fitness();
         double fit_2 = parents[i+1]->get_fitness();
         if (fit_1 >= fit_2){
@@ -49,3 +33,27 @@ std::vector<Chromosome::Chromosome*> TournamentDeme::winners (std::vector<Chromo
     return winners(winning_parents);
 
 }
+
+
+Chromosome* TournamentDeme::tournament_selection(){
+    auto random_num_parents = [&]() -> int {
+        long unsigned int random = rand() % pop_.size();
+        while((2^random) > pop_.size()) {
+            random = rand() % pop_.size();
+        }
+        return 2^random;
+    };
+    std::vector<Chromosome*> parents;
+    for (int i = 0; i < random_num_parents(); i++){
+        parents.push_back(select_parent());
+    }
+    Chromosome* winner = winners(parents)[0];
+    return winner;
+}
+
+Chromosome* TournamentDeme::select_parent(){
+    return tournament_selection();
+}
+
+
+
